@@ -13,6 +13,4 @@ jobs:
 stages:
   - deploy_ropsten_metamask:
       jobs:
-        - deploy_ropsten_metamask:
-            when: 
-              manual
+        - deploy_ropsten_metamask
