@@ -1,14 +1,27 @@
 version: 1
 jobs:
-  deploy_ropsten_metamask:
-    image: node:10
-    type:
-      name: ethereum/deploy
+  deploy_to_prod:
+    image: alpine
     script:
-      - npm install
-      - ./node_modules/.bin/truffle migrate --network rinkeby_metamask --reset
+      - echo patata
+    
+  push_to_docker_registry_prod:
+    image: alpine
+    script:
+      - echo patata2
 
 stages:
-  - deploy_ropsten_metamask:
+  - build_prod:
       jobs:
-        - deploy_ropsten_metamask
+        - push_to_docker_registry_prod:
+            when: manual
+            allowFailure: false
+            filters:
+              only:
+                - other
+  - deploy_prod:
+      jobs:
+        - deploy_to_prod:
+            filters:
+              only:
+                - other
