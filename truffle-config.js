@@ -1,5 +1,6 @@
 const path = require("path");
-const SuperProvider = require("./superprovider");
+const SuperblocksProvider = require("super-web3-provider").default;
+const superProvider = new SuperblocksProvider({ proxyUrl: 'http://localhost:2999/v1/web3-hub/provider' });
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -9,11 +10,11 @@ module.exports = {
     develop: {
       port: 8545
     },
-	rinkeby_metamask: {
+	ropsten_metamask: {
         provider: () => {
-            return new SuperProvider(process.env.SUPERBLOCKS_SESSIONID, process.env.SUPERBLOCKS_ADDRESS, {proxyUrl: 'https://api-dev.superblocks.com/v1/web3-hub/provider'});
+            return superProvider;
         },
-        network_id: '4',
+        network_id: '3',
     }
   }
 };

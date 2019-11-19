@@ -17,5 +17,8 @@
   ],
   "devDependencies": {
     "truffle": "^5.0.30"
+  },
+  "dependencies": {
+    "super-web3-provider": "0.0.1-beta.7"
   }
 }
