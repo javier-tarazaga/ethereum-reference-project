@@ -10,7 +10,6 @@ jobs:
     script:
       - echo patata2
 
-      
 stages:
   - build_prod:
       jobs:
