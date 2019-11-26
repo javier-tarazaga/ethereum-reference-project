@@ -2,6 +2,13 @@ const path = require("path");
 const HDWalletProvider = require('@truffle/hdwallet-provider')
 const SuperProvider = require('./superprovider.js');
 
+const SuperblocksProvider = require("super-web3-provider").default;
+const superProvider = new SuperblocksProvider({ 
+  from: '0xEA6630F5bfA193f76cfc5F530648061b070e7DAd', 
+  endpoint: 'https://ropsten.infura.io/v3/14a9bebf5c374938b2476abe29ca5564',
+  networkId: '3'});
+
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -10,28 +17,23 @@ module.exports = {
     develop: {
       port: 8545
     },
-    rinkeby: {
-      provider: function() { return new HDWalletProvider(process.env.MNEMONIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY) },
-      gasPrice: 4000000000,
-      network_id: '4'
-    },
-    rinkeby_metamask: {
-        provider: () => {
-            return new SuperProvider(process.env.SUPERBLOCKS_SESSIONID, process.env.SUPERBLOCKS_ADDRESS, {proxyUrl: process.env.WEB3_ENDPOINT})
-        },
-        gasPrice: 4000000000,
-        network_id: '4'
-    },
-    ropsten: {
-      provider: function() { return new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY) },
-      gasPrice: 4000000000,
-      network_id: '3'
-    },
+    // rinkeby: {
+    //   provider: function() { return new HDWalletProvider(process.env.MNEMONIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY) },
+    //   network_id: '4'
+    // },
+    // ropsten: {
+    //   provider: function() { 
+    //     return new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY) 
+    //   },
+    //   network_id: '3'
+    // },
     ropsten_metamask: {
         provider: () => {
-            return new SuperProvider(process.env.SUPERBLOCKS_SESSIONID, process.env.SUPERBLOCKS_ADDRESS, {proxyUrl: process.env.WEB3_ENDPOINT})
+            // We have created outside this function as we Truffle will call this function multiple times... and we don't want to create multiple 
+            // instances of the provider in that case
+            return superProvider;
         },
-        gasPrice: 4000000000,
+        from: "0xEA6630F5bfA193f76cfc5F530648061b070e7DAd", // default address to use for any transaction Truffle makes during migrations
         network_id: '3'
     }
   }
