@@ -3,7 +3,7 @@ jobs:
   deploy_to_prod:
     image: alpine
     script:
-      - echo patata
+      - echo patata1
     
   push_to_docker_registry_prod:
     image: alpine
