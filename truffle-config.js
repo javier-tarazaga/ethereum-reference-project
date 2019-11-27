@@ -17,16 +17,6 @@ module.exports = {
     develop: {
       port: 8545
     },
-    // rinkeby: {
-    //   provider: function() { return new HDWalletProvider(process.env.MNEMONIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY) },
-    //   network_id: '4'
-    // },
-    // ropsten: {
-    //   provider: function() { 
-    //     return new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY) 
-    //   },
-    //   network_id: '3'
-    // },
     ropsten_metamask: {
         provider: () => {
             // We have created outside this function as we Truffle will call this function multiple times... and we don't want to create multiple 
