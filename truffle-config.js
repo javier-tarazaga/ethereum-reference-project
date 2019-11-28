@@ -1,6 +1,4 @@
 const path = require("path");
-const HDWalletProvider = require('@truffle/hdwallet-provider')
-const SuperProvider = require('./superprovider.js');
 
 const SuperblocksProvider = require("super-web3-provider").default;
 const superProvider = new SuperblocksProvider({ 
