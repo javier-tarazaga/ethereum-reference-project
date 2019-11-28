@@ -4,6 +4,7 @@ jobs:
     image: alpine
     script:
       - echo patata1
+      - echo patata2
     
   push_to_docker_registry_prod:
     image: alpine
