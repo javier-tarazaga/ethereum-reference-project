@@ -8,6 +8,7 @@ jobs:
         - npm install
         - npx truffle  migrate --network=rinkeby_metamask --verbose-rpc --reset
 
+
 stages:
   - deploy_rinkeby_metamask:
       jobs:
