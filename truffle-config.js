@@ -36,7 +36,7 @@ module.exports = {
             return rinkebySuperProvider;
         },
         from: "0xEA6630F5bfA193f76cfc5F530648061b070e7DAd", // default address to use for any transaction Truffle makes during migrations
-        network_id: '3'
+        network_id: '4'
     }
   }
 };
