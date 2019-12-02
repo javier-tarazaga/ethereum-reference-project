@@ -1,12 +1,12 @@
 version: 1
 jobs:
-  deploy_ropsten_metamask:
+  deploy_rinkeby_metamask:
     image: node:10
     type:
       name: ethereum/deploy
     script:
         - npm install
-        - npx truffle  migrate --network=ropsten_metamask --verbose-rpc --reset
+        - npx truffle  migrate --network=rinkeby_metamask --verbose-rpc --reset
 
 stages:
   - deploy_ropsten_metamask:
