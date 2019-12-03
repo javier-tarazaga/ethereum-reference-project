@@ -19,6 +19,6 @@
     "truffle": "^5.0.35"
   },
   "dependencies": {
-    "super-web3-provider": "0.0.1-beta.10"
+    "super-web3-provider": "0.0.1-beta.11"
   }
 }
