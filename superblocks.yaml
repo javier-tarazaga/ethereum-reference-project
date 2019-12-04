@@ -9,6 +9,7 @@ jobs:
   run_security_analysis: 
      image: node:12
      script:
+        - npm install
         - npm run-script verify
   
   push_to_docker_registry:
@@ -23,11 +24,13 @@ jobs:
   deploy_to_ropsten:
     image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
     script:
+        - npm install
         - npx truffle migrate --network=ropsten --verbose-rpc --reset
 
   deploy_to_rinkeby:
     image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
     script:
+        - npm install
         - npx truffle migrate --network=rinkeby --verbose-rpc --reset
   
   deploy_to_mainnet:
@@ -35,6 +38,7 @@ jobs:
     type:
       name: ethereum/deploy
     script:
+        - npm install
         - npx truffle migrate --network=rinkeby_metamask --verbose-rpc --reset
 
   verify_on_tenderly:
