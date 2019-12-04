@@ -54,25 +54,30 @@ stages:
   - push_docker_image:
       jobs:
         - push_to_docker_registry:
-            only:
-              - master
+            filters:
+              only:
+                - master
   - deploy_to_testnet:
       jobs:
         - deploy_to_ropsten:
-            only: 
-              - master
+            filters:
+              only: 
+                - master
         - deploy_to_rinkeby:
-            only: 
-              - master
+            filters:
+              only: 
+                - master
   - deploy_to_mainnet:
       jobs:
         - deploy_to_mainnet:
             when: manual
             allowFailure: false
-            only: 
-              - master
+            filters:
+              only: 
+                - master
   - verify_deployment:
       job: 
         - verify_on_tenderly:
-            only: 
-              - master
+            filters:
+              only: 
+                - master
