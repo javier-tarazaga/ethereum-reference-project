@@ -50,6 +50,7 @@ jobs:
         - tenderly login --authentication-method=token --token=$TENDERLY_AUTH_TOKEN
         - tenderly verify --networks=3,4
 
+
 stages:
   - build_and_test:
       jobs:
