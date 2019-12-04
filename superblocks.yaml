@@ -1,16 +1,78 @@
 version: 1
 jobs:
-  deploy_rinkeby_metamask:
-    image: node:10
+  run_test:
+    image: node:12-alpine
+    script:
+        - npm install
+        - npm test
+  
+  run_security_analysis: 
+     image: node:12-alpine
+     script:
+        - npm run-script verify
+  
+  push_to_docker_registry:
+    image: docker:18.09.7
+    services:
+      - docker:18.09.7-dind
+    script:
+      - echo "$GITHUB_REGISTRY_TOKEN" | docker login docker.pkg.github.com --username $GITHUB_REGISTRY_USER --password-stdin
+      - docker build --build-arg BUILD=build -t $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1.staging .
+      - docker push $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
+
+  deploy_to_ropsten:
+    image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
+    script:
+        - npx truffle migrate --network=ropsten --verbose-rpc --reset
+
+  deploy_to_rinkeby:
+    image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
+    script:
+        - npx truffle migrate --network=rinkeby --verbose-rpc --reset
+  
+  deploy_to_mainnet:
+    image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
     type:
       name: ethereum/deploy
     script:
-        - npm install
-        - npx truffle  migrate --network=rinkeby_metamask --verbose-rpc --reset
+        - npx truffle migrate --network=rinkeby_metamask --verbose-rpc --reset
 
+  verify_on_tenderly:
+    image: node:12-alpine
+    type:
+      name: ethereum/deploy
+    script:
+        - curl https://raw.githubusercontent.com/Tenderly/tenderly-cli/master/scripts/install-linux.sh | sh
+        - tenderly login --authentication-method=token --token=$TENDERLY_AUTH_TOKEN
+        - tenderly verify --networks=3,4
 
 stages:
-  - deploy_rinkeby_metamask:
+  - build_and_test:
       jobs:
-        - deploy_rinkeby_metamask:
+        - run_test
+        - run_security_analysis
+  - push_docker_image:
+      jobs:
+        - push_to_docker_registry:
+            only:
+              - master
+  - deploy_to_testnet:
+      jobs:
+        - deploy_to_ropsten:
+            only: 
+              - master
+        - deploy_to_rinkeby:
+            only: 
+              - master
+  - deploy_to_mainnet:
+      jobs:
+        - deploy_to_mainnet:
             when: manual
+            allowFailure: false
+            only: 
+              - master
+  - verify_deployment:
+      job: 
+        - verify_on_tenderly:
+            only: 
+              - master
