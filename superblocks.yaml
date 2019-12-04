@@ -1,13 +1,13 @@
 version: 1
 jobs:
   run_test:
-    image: node:12-alpine
+    image: node:12
     script:
         - npm install
         - npm test
   
   run_security_analysis: 
-     image: node:12-alpine
+     image: node:12
      script:
         - npm run-script verify
   
