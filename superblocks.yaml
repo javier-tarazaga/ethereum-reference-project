@@ -76,7 +76,7 @@ stages:
               only: 
                 - master
   - verify_deployment:
-      job: 
+      jobs: 
         - verify_on_tenderly:
             filters:
               only: 
