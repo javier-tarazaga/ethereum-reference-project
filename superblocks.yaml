@@ -18,7 +18,7 @@ jobs:
       - docker:18.09.7-dind
     script:
       - echo "$GITHUB_REGISTRY_TOKEN" | docker login docker.pkg.github.com --username $GITHUB_REGISTRY_USER --password-stdin
-      - docker build --build-arg BUILD=build -t $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1.staging .
+      - docker build --build-arg BUILD=build -t $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1 .
       - docker push $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
 
   deploy_to_ropsten:
@@ -49,6 +49,7 @@ jobs:
         - curl https://raw.githubusercontent.com/Tenderly/tenderly-cli/master/scripts/install-linux.sh | sh
         - tenderly login --authentication-method=token --token=$TENDERLY_AUTH_TOKEN
         - tenderly verify --networks=3,4
+
 
 stages:
   - build_and_test:
