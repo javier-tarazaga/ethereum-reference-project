@@ -17,11 +17,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.0.26",
+    "super-web3-provider": "0.0.1-beta.12",
     "truffle": "^5.0.35",
     "truffle-security": "^1.6.1"
-  },
-  "dependencies": {
-    "@truffle/hdwallet-provider": "^1.0.26",
-    "super-web3-provider": "0.0.1-beta.12"
   }
 }
