@@ -3,43 +3,36 @@ jobs:
   run_test:
     image: node:12
     script:
-        - npm install
-        - npm test
+      - echo "Hola Carl"
   
   run_security_analysis: 
      image: node:12
      script:
-        - npm install
-        - npm run-script verify
+        - echo "Hola Carl"
   
   push_to_docker_registry:
     image: docker:18.09.7
     services:
       - docker:18.09.7-dind
     script:
-      - echo "$GITHUB_REGISTRY_TOKEN" | docker login docker.pkg.github.com --username $GITHUB_REGISTRY_USER --password-stdin
-      - docker build --build-arg BUILD=build -t $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1 .
-      - docker push $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
+      - echo "Hola Carl"
 
   deploy_to_ropsten:
     image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
     script:
-        - npm install
-        - npx truffle migrate --network=ropsten --verbose-rpc --reset
+      - echo "Hola Carl"
 
   deploy_to_rinkeby:
     image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
     script:
-        - npm install
-        - npx truffle migrate --network=rinkeby --verbose-rpc --reset
+      - echo "Hola Carl"
   
   deploy_to_mainnet:
     image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
     type:
       name: ethereum/deploy
     script:
-        - npm install
-        - npx truffle migrate --network=rinkeby_metamask --verbose-rpc --reset
+      - echo "Hola Carl"
 
   verify_on_tenderly:
     image: node:12-alpine
