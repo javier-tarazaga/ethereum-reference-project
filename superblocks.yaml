@@ -18,17 +18,17 @@ jobs:
       - echo "Hola Carl"
 
   deploy_to_ropsten:
-    image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
+    image: node:12
     script:
       - echo "Hola Carl"
 
   deploy_to_rinkeby:
-    image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
+    image: node:12
     script:
       - echo "Hola Carl"
   
   deploy_to_mainnet:
-    image: $GITHUB_REGISTRY_IMAGE:$SUPER_COMMIT_SHA1
+    image: node:12
     type:
       name: ethereum/deploy
     script:
