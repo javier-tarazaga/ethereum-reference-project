@@ -16,7 +16,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "truffle": "^5.0.35"
+    "truffle": "^5.8.4"
   },
   "dependencies": {
     "super-web3-provider": "0.0.1-beta.12"
